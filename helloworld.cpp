@@ -156,15 +156,107 @@ typedef struct  _tree
 	int data;
 	_tree* left;
 	_tree* right;
+	int height;
 	_tree(int val) {
 		data = val;
 		left = NULL;
 		right = NULL;
+		height = 1;//every new node has height 1 used for AVL tree
 	}
+	
 }Tree;
 
 Tree* root;
 
+/*calculate height for avl tree*/
+int height_avl(Tree* node) {
+	if (node == NULL) return 0;
+	return node->height;
+}
+
+/*left rotation for avl tree*/
+Tree* left_rotation(Tree* r) {
+	Tree* x = r->right;
+	Tree* t2 = x->left;
+
+	x->left = r;
+	r->right = t2;
+
+	r->height = 1 + max(height_avl(r->left), height_avl(r->right));
+	x->height = 1 + max(height_avl(x->left), height_avl(x->right));
+
+	return x;
+}
+
+/*right rotation for avl tree*/
+Tree* right_rotation(Tree* r) {
+	Tree* x = r->left;
+	Tree* t2 = x->right;
+
+	x->right = r;
+	r->left = t2;
+
+	r->height = 1 + max(height_avl(r->left), height_avl(r->right));
+	x->height = 1 + max(height_avl(x->left), height_avl(x->right));
+
+	return x;
+}
+
+/*calculate balance factor for avl tree node*/
+int get_balance(Tree* node) {
+	if (node) {
+		return height_avl(node->right) - height_avl(node->left);
+	}
+	return 0;
+}
+
+/*insert node in avl tree*/
+Tree* insert_avl(Tree* r, int val) {
+	if (r == nullptr) {
+		return new Tree(val);
+	}
+
+	if (val < r->data) {
+		r->left = insert_avl(r->left,val);
+	}
+	else if (val > r->data) {
+		r->right = insert_avl(r->right, val);
+	}
+	else
+	{
+		return r;
+	}
+
+	r->height = 1 + max(height_avl(r->left), height_avl(r->right));
+
+	int balance = get_balance(r);
+
+	// left left case rotate towards right
+	if (balance < -1 && val < r->left->data) {
+		return right_rotation(r);
+	}
+
+	//right right case rotate toward left
+	if (balance > 1 && val > r->right->data) {
+		return left_rotation(r);
+	}
+
+	//right left case rotate right first then towards left
+
+	if (balance > 1 && val < r->right->data) {
+		r->right = right_rotation(r->right);
+		return left_rotation(r);
+	}
+
+	//left right case rotate left first then towards right
+
+	if (balance < -1 && val > r->left->data) {
+		r->left = left_rotation(r->left);
+		return right_rotation(r);
+	}
+
+	return r;
+}
 
 void dfs(Tree* root) {
 	if (root) {
@@ -358,8 +450,51 @@ void reverse_list(mylist*& head) {
 	head = prev;
 }
 
+void pre_order_tree(Tree* r) {
+	if (r == nullptr) return;
+
+	cout << r->data << ",";
+	pre_order_tree(r->left);
+	pre_order_tree(r->right);
+}
+
+void in_order_tree(Tree* r) {
+	if (r == nullptr) return;
+	
+	in_order_tree(r->left);
+	cout << r->data << ",";
+	in_order_tree(r->right);
+}
+
+void post_order_tree(Tree* r) {
+	if (r == nullptr) return;
+
+	post_order_tree(r->left);
+	post_order_tree(r->right);
+	cout << r->data << ",";
+}
+
 int main()
 {
+
+	Tree* root = NULL;
+
+	/* Constructing tree given in
+	the above figure */
+	root = insert_avl(root, 10);
+	root = insert_avl(root, 20);
+	root = insert_avl(root, 30);
+	root = insert_avl(root, 40);
+	root = insert_avl(root, 50);
+	root = insert_avl(root, 25);
+
+	cout << "Preorder traversal of the "
+		"constructed AVL tree is \n";
+	pre_order_tree(root);
+
+	cout << "sorted tree node inorder: ";
+	in_order_tree(root);
+
 	mylist* list_new = new mylist(1);
 	list_new->next = new mylist(2);
 	list_new->next->next = new mylist(3);
