@@ -474,4 +474,43 @@ void post_order_tree(Tree* r) {
 	cout << r->data << ",";
 }
 
+int* counting_sort(int arr[],int size_arr) {
+	int count_arr[99999] = { 0 };
+	//int size_arr = sizeof(arr) / sizeof(int);
+	int max_elem = -1;
+	int min_elem = 9999;
+	for (int i=0;i< size_arr;++i)
+	{
+		count_arr[arr[i]] = count_arr[arr[i]] + 1;
+		if (max_elem < arr[i]) {
+			max_elem = arr[i];
+		}
+		if (min_elem > arr[i]) {
+			min_elem = arr[i];
+		}
+	}
+
+	for (int j = min_elem; j <= max_elem; ++j)
+	{
+		if (j < 1) {
+			count_arr[j] = count_arr[j];
+		}
+		else {
+			count_arr[j] = count_arr[j - 1] + count_arr[j];
+		}
+		
+	}
+
+	int* out_arr = new int[size_arr];
+	
+	for (int k = 0; k < size_arr; ++k)
+	{
+		int pos = count_arr[arr[k]] - 1;
+		out_arr[pos] = arr[k];
+		count_arr[arr[k]] -= 1;
+	}
+
+	return out_arr;
+}
+
 #pragma once

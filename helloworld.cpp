@@ -5,6 +5,18 @@
 int main()
 {
 
+	int arr_sort[15] = { 1,10,25,3,15,45,1,76,32,10,19,5,3,76,1 };
+
+	int* res = counting_sort(arr_sort,15);
+
+	cout << "sorted array is: ";
+
+	for (int ii = 0; ii < 15; ++ii) 
+	{
+		cout << res[ii] << ",";
+	}
+
+	cout << endl;
 	Tree* root = NULL;
 
 	/* Constructing tree given in
