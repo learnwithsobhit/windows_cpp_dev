@@ -4,6 +4,10 @@
 
 int main()
 {
+	vector<int> arr_radix= { 1,100,25,3,150,45,10,760,32,10,19,500,3000,76,1 };
+
+	auto res_redix = radix_sort(arr_radix);
+
 
 	int arr_sort[15] = { 1,10,25,3,15,45,1,76,32,10,19,5,3,76,1 };
 

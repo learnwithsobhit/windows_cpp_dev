@@ -6,6 +6,7 @@
 #include<queue>
 #include<string>
 #include<limits.h>
+#include <map>
 
 using namespace std;
 
@@ -511,6 +512,40 @@ int* counting_sort(int arr[],int size_arr) {
 	}
 
 	return out_arr;
+}
+
+vector<int> radix_sort(vector<int> arr) {
+	//int* out_arr = new int[size_arr];
+	vector<int> out_arr;
+	int size_arr = arr.size();
+	int not_done = 1;
+	map<int, vector<int>> out_map;
+	int devide_factor = 1;
+	while (not_done) {
+		
+		not_done = 0;
+		for (int i = 0; i < size_arr; ++i)
+		{
+			if (arr[i] > devide_factor) {
+				not_done = 1;
+			}
+
+			int divide = arr[i] / devide_factor;
+			int pos = divide % 10;
+			out_map[pos].push_back(arr[i]);
+		}
+		
+		for (map<int, vector<int>>::iterator itr = out_map.begin();itr!=out_map.end();++itr)
+		{
+			out_arr.insert(out_arr.end(), itr->second.begin(), itr->second.end());
+		}
+		arr = out_arr;
+		devide_factor *= 10;
+		out_map.clear();
+		out_arr.clear();
+	}
+
+	return arr;
 }
 
 #pragma once
