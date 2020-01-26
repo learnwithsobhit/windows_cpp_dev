@@ -8,6 +8,8 @@
 #include<limits.h>
 #include <map>
 
+#include <stdexcept>
+
 using namespace std;
 
 template<typename T1, typename T2>
@@ -547,5 +549,63 @@ vector<int> radix_sort(vector<int> arr) {
 
 	return arr;
 }
+
+#include<set>
+
+class Friend
+{
+public:
+	std::vector<Friend*> friends;
+
+	Friend(std::string email)
+	{
+		this->email = email;
+	}
+
+	void addFriendship(Friend* target)
+	{
+		friends.push_back(target);
+		target->friends.push_back(this);
+	}
+
+	bool isfriend(Friend* f, set<Friend*> v, Friend* t) {
+		
+		if (!f->email.compare(t->email)) {
+			return true;
+		}
+		bool res = false;
+		for (auto itr = f->friends.begin();itr!=f->friends.end();++itr)
+		{
+			if (v.insert(*itr).second)
+			{
+				res = isfriend(*itr, v, t);
+				if (res) return res;
+			}
+		}
+		return res;
+	}
+	bool canBeConnected(Friend* target)
+	{
+		//throw std::logic_error("Waiting to be implemented");
+// 		unsigned int la = this->friends.size();
+// 		unsigned int lb = target->friends.size();
+		vector<Friend*>::iterator itra = this->friends.begin();
+		set<Friend*> visitor;
+		//vector<Friend*>::iterator itrb = target->friends.begin();
+		bool res = false;
+		for (;itra!= this->friends.end();++itra)
+		{
+			if (visitor.insert(*itra).second) {
+				res = isfriend(*itra, visitor, target);
+				if (res) return res;
+			}
+		}
+		return res;
+	}
+
+private:
+	std::string email;
+};
+
 
 #pragma once

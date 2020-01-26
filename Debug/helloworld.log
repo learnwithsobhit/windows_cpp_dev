@@ -1,10 +1,10 @@
 ﻿  helloworld.cpp
-D:\cpp_env\helloworld\Header.h(35,8): warning C4018: '>': signed/unsigned mismatch
-D:\cpp_env\helloworld\Header.h(369,27): warning C4018: '<': signed/unsigned mismatch
-D:\cpp_env\helloworld\Header.h(396,27): warning C4018: '<': signed/unsigned mismatch
-D:\cpp_env\helloworld\Header.h(396,45): warning C4018: '<': signed/unsigned mismatch
-D:\cpp_env\helloworld\helloworld.cpp(90,20): warning C4018: '<': signed/unsigned mismatch
-D:\cpp_env\helloworld\helloworld.cpp(84,9): warning C4101: 'j': unreferenced local variable
-D:\cpp_env\helloworld\helloworld.cpp(84,6): warning C4101: 'i': unreferenced local variable
-D:\cpp_env\helloworld\Header.h(57): warning C4715: 'knapsak': not all control paths return a value
+D:\cpp_env\helloworld\Header.h(37,8): warning C4018: '>': signed/unsigned mismatch
+D:\cpp_env\helloworld\Header.h(371,27): warning C4018: '<': signed/unsigned mismatch
+D:\cpp_env\helloworld\Header.h(398,27): warning C4018: '<': signed/unsigned mismatch
+D:\cpp_env\helloworld\Header.h(398,45): warning C4018: '<': signed/unsigned mismatch
+D:\cpp_env\helloworld\helloworld.cpp(104,20): warning C4018: '<': signed/unsigned mismatch
+D:\cpp_env\helloworld\helloworld.cpp(98,9): warning C4101: 'j': unreferenced local variable
+D:\cpp_env\helloworld\helloworld.cpp(98,6): warning C4101: 'i': unreferenced local variable
+D:\cpp_env\helloworld\Header.h(59): warning C4715: 'knapsak': not all control paths return a value
   helloworld.vcxproj -> D:\cpp_env\helloworld\Debug\helloworld.exe

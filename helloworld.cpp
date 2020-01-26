@@ -4,6 +4,20 @@
 
 int main()
 {
+
+	Friend a("A");
+	Friend b("B");
+	Friend c("C");
+	Friend d("D");
+	Friend e("E");
+
+	a.addFriendship(&b);
+	b.addFriendship(&c);
+	c.addFriendship(&d);
+	d.addFriendship(&e);
+
+	std::cout << a.canBeConnected(&e);
+
 	vector<int> arr_radix= { 1,100,25,3,150,45,10,760,32,10,19,500,3000,76,1 };
 
 	auto res_redix = radix_sort(arr_radix);
